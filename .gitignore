@@ -16,6 +16,8 @@
 *.sym
 
 build/
+
+build/
 # I keep these, since I prefer having the reference of the final build
 # *.elf
 # *.hex
