@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/vedarsh/projects/usrl-core/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

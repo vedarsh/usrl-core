@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define DEBUG
+
 #ifdef DEBUG
 #define DEBUG_PRINT_CORE(...) \
     do { printf("[DEBUG][CORE] " __VA_ARGS__); fflush(stdout); } while (0)
@@ -101,6 +101,10 @@ int usrl_core_init(const char *path, uint64_t size, const UsrlTopicConfig *topic
         // math for sizes
         uint32_t slots_pow2 = next_power_of_two_u32(topics[i].slot_count);
         uint32_t slot_sz_aligned = (uint32_t)usrl_align_up(sizeof(SlotHeader) + topics[i].slot_size, 8);
+
+        // ... inside usrl_core_init loop ...
+
+        t->type = topics[i].type;
 
         t->slot_count = slots_pow2;
         t->slot_size  = slot_sz_aligned;
