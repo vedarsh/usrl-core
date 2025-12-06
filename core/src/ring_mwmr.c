@@ -1,104 +1,265 @@
 #include "usrl_core.h"
 #include "usrl_ring.h"
-#include <string.h>
-#include <time.h>
-#include <sched.h>
 
-// simple backoff for contention
-static void backoff(int iter) {
+#include <stdio.h>
+#include <string.h>
+#include <sched.h>
+#include <time.h>
+
+/* --------------------------------------------------------------------------
+ * Debug Utilities
+ * -------------------------------------------------------------------------- */
+#ifdef DEBUG
+#define DEBUG_PRINT_MWMR(...) \
+    do { printf("[DEBUG][MWMR] " __VA_ARGS__); fflush(stdout); } while (0)
+#else
+#define DEBUG_PRINT_MWMR(...) ((void)0)
+#endif
+
+/* --------------------------------------------------------------------------
+ * FIX #6: Use CLOCK_MONOTONIC instead of CLOCK_REALTIME
+ * -------------------------------------------------------------------------- */
+static inline uint64_t usrl_timestamp_ns(void) {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+}
+
+/* --------------------------------------------------------------------------
+ * Simple Backoff Strategy
+ *
+ *   - Tight spins for the first 10 iterations (low cost, avoids context switch)
+ *   - sched_yield() thereafter to avoid starving other threads
+ * -------------------------------------------------------------------------- */
+static inline void backoff(int iter) {
     if (iter < 10) {
-        // spin
-        __asm__ volatile("nop");
+        __asm__ volatile("pause" ::: "memory");  /* x86 hint, nop on other archs */
     } else {
         sched_yield();
     }
 }
 
-void usrl_mwmr_pub_init(UsrlMwmrPublisher *p, void *core_base, const char *topic, uint16_t pub_id) {
-    if (!p || !core_base || !topic) return;
+/* =============================================================================
+ * MWMR PUBLISHER INITIALIZATION
+ * =============================================================================
+ *
+ * usrl_mwmr_pub_init()
+ *
+ * Initializes a multi-writer publisher for a particular topic.
+ *
+ * Responsibilities:
+ *   - Validate topic
+ *   - Confirm the topic is MWMR type
+ *   - Bind ring descriptor + base pointer
+ *   - Store pub_id
+ * =============================================================================
+ */
+void usrl_mwmr_pub_init(
+    UsrlMwmrPublisher *p,
+    void              *core_base,
+    const char        *topic,
+    uint16_t           pub_id
+) {
+    if (!p || !core_base || !topic)
+        return;
 
+    /* Lookup topic descriptor */
     TopicEntry *t = usrl_get_topic(core_base, topic);
-    if (!t) return;
+    if (!t)
+        return;
 
-    // Check type safety
+    /* Type check: must be MWMR */
     if (t->type != USRL_RING_TYPE_MWMR) {
         printf("[ERROR] Topic '%s' is not MWMR!\n", topic);
         return;
     }
 
+    /* Bind publisher to ring */
     p->desc     = (RingDesc*)((uint8_t*)core_base + t->ring_desc_offset);
     p->base_ptr = (uint8_t*)core_base + p->desc->base_offset;
     p->mask     = p->desc->slot_count - 1;
     p->pub_id   = pub_id;
+
+    DEBUG_PRINT_MWMR("publisher %u ready on MWMR topic '%s'\n", pub_id, topic);
 }
 
-int usrl_mwmr_pub_publish(UsrlMwmrPublisher *p, const void *data, uint32_t len) {
-    if (!p || !p->desc || !data) return -1;
+/* =============================================================================
+ * MWMR PUBLISH
+ * =============================================================================
+ *
+ * usrl_mwmr_pub_publish()
+ *
+ * This is the multi-writer-safe publish path.
+ *
+ * Steps:
+ *   1) Atomic reservation of a sequence number (unique per writer).
+ *   2) Compute ring index.
+ *   3) Spin-wait until the slot is safe to overwrite
+ *      (to avoid collisions with lagging writers).
+ *   4) Write payload + metadata.
+ *   5) Insert memory barrier (FIX #2).
+ *   6) Commit by publishing sequence number.
+ *
+ * FIX #1: Correct generation-based slot safety check.
+ * FIX #4: Deadlock prevention with timeout.
+ *
+ * Return Values:
+ *    0 = success
+ *   -1 = invalid or null arguments
+ *   -2 = payload too large
+ *   -3 = timeout waiting for safe overwrite (avoid deadlock)
+ *
+ * =============================================================================
+ */
+int usrl_mwmr_pub_publish(
+    UsrlMwmrPublisher *p,
+    const void        *data,
+    uint32_t           len
+) {
+    if (USRL_UNLIKELY(!p || !p->desc || !data))
+        return -1;
 
     RingDesc *d = p->desc;
-    if (len > (d->slot_size - sizeof(SlotHeader))) return -2;
 
-    // 1. ATOMIC RESERVATION
-    // This is the contention point. Multiple threads/processes hit this.
-    // We get a unique monotonic 'index' (old_head).
-    uint64_t old_head = atomic_fetch_add_explicit(&d->w_head, 1, memory_order_acq_rel);
+    /* Payload must fit inside slot */
+    if (USRL_UNLIKELY(len > (d->slot_size - sizeof(SlotHeader))))
+        return -2;
+
+    /* ----------------------------------------------------------------------
+     * 1. Atomic Reservation
+     *
+     * Multiple writers increment w_head simultaneously, but fetch_add gives
+     * each writer a unique old_head value.
+     * ---------------------------------------------------------------------- */
+    uint64_t old_head =
+        atomic_fetch_add_explicit(&d->w_head, 1, memory_order_acq_rel);
     uint64_t commit_seq = old_head + 1;
-    uint32_t idx = (uint32_t)((commit_seq - 1) & p->mask);
 
-    uint8_t    *slot = p->base_ptr + ((uint64_t)idx * d->slot_size);
-    SlotHeader *hdr  = (SlotHeader*)slot;
+    /* Compute slot index */
+    uint32_t idx   = (uint32_t)((commit_seq - 1) & p->mask);
+    uint8_t *slot  = p->base_ptr + ((uint64_t)idx * d->slot_size);
+    SlotHeader *hdr = (SlotHeader*)slot;
 
-    // 2. SAFETY CHECK (Critical for MWMR)
-    // In a ring, we might be overtaking the reader TAIL or an old writer.
-    // We need to make sure the slot we just reserved isn't currently being written to
-    // by a *lagging* writer from a previous wrap-around.
-
-    // Ideally, we check 'seq'.
-    // If seq == 0, slot is empty.
-    // If seq < commit_seq - slot_count, it's old data, safe to overwrite.
-    // If seq > commit_seq, something is very broken.
-    // If seq is "in progress" (we define a marker), we wait.
-
-    // For this implementation, we rely on the fact that 'seq' is only updated
-    // at the END of the write.
-    // However, there is a risk: What if Writer A reserves Slot 1 (Seq 100)
-    // but hasn't started writing, and Writer B (Seq 100 + SlotCount) wraps around
-    // and tries to overwrite Slot 1?
-    // Writer B sees old Seq (e.g. 0 or previous).
-    // Writer B writes. Writer A writes. Collision.
-
-    // Spin wait until the slot is ready to be overwritten.
-    // The slot is ready if its current `seq` belongs to the previous generation.
-    // Expected previous seq = commit_seq - slot_count.
-    // Initial case: seq = 0.
-
+    /* ----------------------------------------------------------------------
+     * 2. FIX #1: Correct Generation-Based Safety Check
+     *
+     * We must ensure that:
+     *   - The previous writer (from a prior lap) has finished writing.
+     *   - We are not overwriting a slot that is still "in progress".
+     *
+     * Generation Logic:
+     *   my_gen      = commit_seq / slot_count
+     *   current_gen = current_seq / slot_count
+     *
+     * Slot is safe if:
+     *   current_seq == 0   (never used)
+     *   OR current_gen < my_gen (previous generation)
+     *
+     * This avoids the underflow bug when current_seq > commit_seq due to
+     * wrap-around or stale data.
+     *
+     * FIX #4: Deadlock prevention with iteration limit.
+     * ---------------------------------------------------------------------- */
     int iter = 0;
+    const int max_iter = 100000;  /* Prevent infinite spin */
+
     while (1) {
-        uint64_t current_seq = atomic_load_explicit(&hdr->seq, memory_order_acquire);
-        uint64_t diff = commit_seq - current_seq;
+        uint64_t current_seq =
+            atomic_load_explicit(&hdr->seq, memory_order_acquire);
 
-        // If diff == slot_count + 1, it means the slot contains exactly the message
-        // from one full lap ago. It is fully committed and safe to overwrite.
-        // Special case: if current_seq == 0, it's never been used.
-        if (current_seq == 0 || diff >= d->slot_count) {
-            break; // Safe to write
-        }
+        /* Case 1: Slot never used */
+        if (current_seq == 0)
+            break;
 
-        // Backoff if the reader hasn't consumed it or previous writer is slow
+        /* FIX #1: Use generation-based comparison */
+        uint64_t my_gen      = commit_seq / d->slot_count;
+        uint64_t current_gen = current_seq / d->slot_count;
+
+        /* Case 2: Previous generation's data - safe to overwrite */
+        if (current_gen < my_gen)
+            break;
+
+        /* Case 3: Same generation but different seq (another writer's slot)
+         * This should not happen due to fetch_add uniqueness, but handle it.
+         * If current_seq < commit_seq within same generation, prev writer
+         * is still writing. Wait. */
+
+        /* Otherwise, slot is still "active" - wait */
         backoff(iter++);
-        if (iter > 10000) return -3; // Timeout / Deadlock avoidance
+
+        /* FIX #4: Timeout to prevent deadlock */
+        if (USRL_UNLIKELY(iter > max_iter)) {
+            DEBUG_PRINT_MWMR("timeout waiting for slot %u (seq %lu)\n",
+                             idx, commit_seq);
+            return -3;
+        }
     }
 
-    // 3. WRITE DATA
+    /* FIX #11: Prefetch for writing */
+    USRL_PREFETCH_W(slot + sizeof(SlotHeader));
+
+    /* ----------------------------------------------------------------------
+     * 3. WRITE PAYLOAD + METADATA
+     * ---------------------------------------------------------------------- */
     memcpy(slot + sizeof(SlotHeader), data, len);
-    hdr->payload_len = len;
-    hdr->pub_id      = p->pub_id;
 
-    struct timespec ts;
-    clock_gettime(CLOCK_REALTIME, &ts);
-    hdr->timestamp_ns = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+    hdr->payload_len  = len;
+    hdr->pub_id       = p->pub_id;
 
-    // 4. COMMIT
+    /* FIX #6: Use monotonic timestamp */
+    hdr->timestamp_ns = usrl_timestamp_ns();
+
+    /* ----------------------------------------------------------------------
+     * 4. FIX #2: Memory barrier before commit
+     *
+     * Ensures all payload/header writes are globally visible BEFORE the
+     * sequence number is published.
+     * ---------------------------------------------------------------------- */
+    atomic_thread_fence(memory_order_release);
+
+    /* ----------------------------------------------------------------------
+     * 5. COMMIT
+     *
+     * Publishing seq marks slot as ready-to-consume.
+     * ---------------------------------------------------------------------- */
     atomic_store_explicit(&hdr->seq, commit_seq, memory_order_release);
+
+    DEBUG_PRINT_MWMR("pub %u committed seq %lu at slot %u\n",
+                     p->pub_id, commit_seq, idx);
     return 0;
+}
+
+/* =============================================================================
+ * MWMR SUBSCRIBER INITIALIZATION
+ * =============================================================================
+ *
+ * usrl_mwmr_sub_init()
+ *
+ * Wrapper to initialize a subscriber on an MWMR topic.
+ * Uses the same UsrlSubscriber struct and logic as SWMR.
+ * =============================================================================
+ */
+void usrl_mwmr_sub_init(
+    UsrlSubscriber *s,
+    void           *core_base,
+    const char     *topic
+) {
+    if (!s || !core_base || !topic)
+        return;
+
+    TopicEntry *t = usrl_get_topic(core_base, topic);
+    if (!t)
+        return;
+
+    /* Type check: warn if not MWMR */
+    if (t->type != USRL_RING_TYPE_MWMR) {
+        printf("[WARN] Topic '%s' is not MWMR, using anyway\n", topic);
+    }
+
+    s->desc     = (RingDesc*)((uint8_t*)core_base + t->ring_desc_offset);
+    s->base_ptr = (uint8_t*)core_base + s->desc->base_offset;
+    s->mask     = s->desc->slot_count - 1;
+    s->last_seq = 0;
+
+    DEBUG_PRINT_MWMR("subscriber ready on '%s'\n", topic);
 }

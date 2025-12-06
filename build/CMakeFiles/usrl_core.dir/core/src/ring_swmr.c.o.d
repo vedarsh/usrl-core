@@ -14,6 +14,8 @@ CMakeFiles/usrl_core.dir/core/src/ring_swmr.c.o: \
  /usr/include/bits/stdint-least.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdatomic.h \
  /home/vedarsh/projects/usrl-core/core/includes/usrl_ring.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h \
+ /home/vedarsh/projects/usrl-core/core/includes/usrl_core.h \
  /usr/include/stdio.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h \
@@ -23,7 +25,6 @@ CMakeFiles/usrl_core.dir/core/src/ring_swmr.c.o: \
  /usr/include/bits/types/cookie_io_functions_t.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/floatn.h \
  /usr/include/bits/floatn-common.h /usr/include/bits/stdio.h \
- /home/vedarsh/projects/usrl-core/core/includes/usrl_core.h \
  /usr/include/string.h /usr/include/bits/types/locale_t.h \
  /usr/include/bits/types/__locale_t.h /usr/include/strings.h \
  /usr/include/time.h /usr/include/bits/time.h \

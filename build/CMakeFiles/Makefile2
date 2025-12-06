@@ -64,24 +64,10 @@ CMAKE_BINARY_DIR = /home/vedarsh/projects/usrl-core/build
 
 # The main recursive "all" target.
 all: CMakeFiles/usrl_core.dir/all
-all: CMakeFiles/init_core.dir/all
-all: CMakeFiles/pub.dir/all
-all: CMakeFiles/sub.dir/all
-all: CMakeFiles/init_bench.dir/all
-all: CMakeFiles/bench_pub_swmr.dir/all
-all: CMakeFiles/bench_pub_mwmr.dir/all
-all: CMakeFiles/bench_sub.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/usrl_core.dir/codegen
-codegen: CMakeFiles/init_core.dir/codegen
-codegen: CMakeFiles/pub.dir/codegen
-codegen: CMakeFiles/sub.dir/codegen
-codegen: CMakeFiles/init_bench.dir/codegen
-codegen: CMakeFiles/bench_pub_swmr.dir/codegen
-codegen: CMakeFiles/bench_pub_mwmr.dir/codegen
-codegen: CMakeFiles/bench_sub.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -90,13 +76,6 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/usrl_core.dir/clean
-clean: CMakeFiles/init_core.dir/clean
-clean: CMakeFiles/pub.dir/clean
-clean: CMakeFiles/sub.dir/clean
-clean: CMakeFiles/init_bench.dir/clean
-clean: CMakeFiles/bench_pub_swmr.dir/clean
-clean: CMakeFiles/bench_pub_mwmr.dir/clean
-clean: CMakeFiles/bench_sub.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -106,7 +85,7 @@ clean: CMakeFiles/bench_sub.dir/clean
 CMakeFiles/usrl_core.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/usrl_core.dir/build.make CMakeFiles/usrl_core.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/usrl_core.dir/build.make CMakeFiles/usrl_core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=15,16,17,18 "Built target usrl_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=1,2,3,4 "Built target usrl_core"
 .PHONY : CMakeFiles/usrl_core.dir/all
 
 # Build rule for subdir invocation for target.
@@ -123,237 +102,13 @@ usrl_core: CMakeFiles/usrl_core.dir/rule
 # codegen rule for target.
 CMakeFiles/usrl_core.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/usrl_core.dir/build.make CMakeFiles/usrl_core.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=15,16,17,18 "Finished codegen for target usrl_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target usrl_core"
 .PHONY : CMakeFiles/usrl_core.dir/codegen
 
 # clean rule for target.
 CMakeFiles/usrl_core.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/usrl_core.dir/build.make CMakeFiles/usrl_core.dir/clean
 .PHONY : CMakeFiles/usrl_core.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/init_core.dir
-
-# All Build rule for target.
-CMakeFiles/init_core.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_core.dir/build.make CMakeFiles/init_core.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_core.dir/build.make CMakeFiles/init_core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=9,10 "Built target init_core"
-.PHONY : CMakeFiles/init_core.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/init_core.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/init_core.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/init_core.dir/rule
-
-# Convenience name for target.
-init_core: CMakeFiles/init_core.dir/rule
-.PHONY : init_core
-
-# codegen rule for target.
-CMakeFiles/init_core.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_core.dir/build.make CMakeFiles/init_core.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=9,10 "Finished codegen for target init_core"
-.PHONY : CMakeFiles/init_core.dir/codegen
-
-# clean rule for target.
-CMakeFiles/init_core.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_core.dir/build.make CMakeFiles/init_core.dir/clean
-.PHONY : CMakeFiles/init_core.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/pub.dir
-
-# All Build rule for target.
-CMakeFiles/pub.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pub.dir/build.make CMakeFiles/pub.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pub.dir/build.make CMakeFiles/pub.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=11,12 "Built target pub"
-.PHONY : CMakeFiles/pub.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/pub.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/pub.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/pub.dir/rule
-
-# Convenience name for target.
-pub: CMakeFiles/pub.dir/rule
-.PHONY : pub
-
-# codegen rule for target.
-CMakeFiles/pub.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pub.dir/build.make CMakeFiles/pub.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=11,12 "Finished codegen for target pub"
-.PHONY : CMakeFiles/pub.dir/codegen
-
-# clean rule for target.
-CMakeFiles/pub.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pub.dir/build.make CMakeFiles/pub.dir/clean
-.PHONY : CMakeFiles/pub.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/sub.dir
-
-# All Build rule for target.
-CMakeFiles/sub.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=13,14 "Built target sub"
-.PHONY : CMakeFiles/sub.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/sub.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/sub.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/sub.dir/rule
-
-# Convenience name for target.
-sub: CMakeFiles/sub.dir/rule
-.PHONY : sub
-
-# codegen rule for target.
-CMakeFiles/sub.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=13,14 "Finished codegen for target sub"
-.PHONY : CMakeFiles/sub.dir/codegen
-
-# clean rule for target.
-CMakeFiles/sub.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/clean
-.PHONY : CMakeFiles/sub.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/init_bench.dir
-
-# All Build rule for target.
-CMakeFiles/init_bench.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_bench.dir/build.make CMakeFiles/init_bench.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_bench.dir/build.make CMakeFiles/init_bench.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=7,8 "Built target init_bench"
-.PHONY : CMakeFiles/init_bench.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/init_bench.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/init_bench.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/init_bench.dir/rule
-
-# Convenience name for target.
-init_bench: CMakeFiles/init_bench.dir/rule
-.PHONY : init_bench
-
-# codegen rule for target.
-CMakeFiles/init_bench.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_bench.dir/build.make CMakeFiles/init_bench.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=7,8 "Finished codegen for target init_bench"
-.PHONY : CMakeFiles/init_bench.dir/codegen
-
-# clean rule for target.
-CMakeFiles/init_bench.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_bench.dir/build.make CMakeFiles/init_bench.dir/clean
-.PHONY : CMakeFiles/init_bench.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/bench_pub_swmr.dir
-
-# All Build rule for target.
-CMakeFiles/bench_pub_swmr.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_swmr.dir/build.make CMakeFiles/bench_pub_swmr.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_swmr.dir/build.make CMakeFiles/bench_pub_swmr.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=3,4 "Built target bench_pub_swmr"
-.PHONY : CMakeFiles/bench_pub_swmr.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/bench_pub_swmr.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bench_pub_swmr.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/bench_pub_swmr.dir/rule
-
-# Convenience name for target.
-bench_pub_swmr: CMakeFiles/bench_pub_swmr.dir/rule
-.PHONY : bench_pub_swmr
-
-# codegen rule for target.
-CMakeFiles/bench_pub_swmr.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_swmr.dir/build.make CMakeFiles/bench_pub_swmr.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=3,4 "Finished codegen for target bench_pub_swmr"
-.PHONY : CMakeFiles/bench_pub_swmr.dir/codegen
-
-# clean rule for target.
-CMakeFiles/bench_pub_swmr.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_swmr.dir/build.make CMakeFiles/bench_pub_swmr.dir/clean
-.PHONY : CMakeFiles/bench_pub_swmr.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/bench_pub_mwmr.dir
-
-# All Build rule for target.
-CMakeFiles/bench_pub_mwmr.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_mwmr.dir/build.make CMakeFiles/bench_pub_mwmr.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_mwmr.dir/build.make CMakeFiles/bench_pub_mwmr.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=1,2 "Built target bench_pub_mwmr"
-.PHONY : CMakeFiles/bench_pub_mwmr.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/bench_pub_mwmr.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bench_pub_mwmr.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/bench_pub_mwmr.dir/rule
-
-# Convenience name for target.
-bench_pub_mwmr: CMakeFiles/bench_pub_mwmr.dir/rule
-.PHONY : bench_pub_mwmr
-
-# codegen rule for target.
-CMakeFiles/bench_pub_mwmr.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_mwmr.dir/build.make CMakeFiles/bench_pub_mwmr.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=1,2 "Finished codegen for target bench_pub_mwmr"
-.PHONY : CMakeFiles/bench_pub_mwmr.dir/codegen
-
-# clean rule for target.
-CMakeFiles/bench_pub_mwmr.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_pub_mwmr.dir/build.make CMakeFiles/bench_pub_mwmr.dir/clean
-.PHONY : CMakeFiles/bench_pub_mwmr.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/bench_sub.dir
-
-# All Build rule for target.
-CMakeFiles/bench_sub.dir/all: CMakeFiles/usrl_core.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_sub.dir/build.make CMakeFiles/bench_sub.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_sub.dir/build.make CMakeFiles/bench_sub.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=5,6 "Built target bench_sub"
-.PHONY : CMakeFiles/bench_sub.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/bench_sub.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bench_sub.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles 0
-.PHONY : CMakeFiles/bench_sub.dir/rule
-
-# Convenience name for target.
-bench_sub: CMakeFiles/bench_sub.dir/rule
-.PHONY : bench_sub
-
-# codegen rule for target.
-CMakeFiles/bench_sub.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_sub.dir/build.make CMakeFiles/bench_sub.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vedarsh/projects/usrl-core/build/CMakeFiles --progress-num=5,6 "Finished codegen for target bench_sub"
-.PHONY : CMakeFiles/bench_sub.dir/codegen
-
-# clean rule for target.
-CMakeFiles/bench_sub.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_sub.dir/build.make CMakeFiles/bench_sub.dir/clean
-.PHONY : CMakeFiles/bench_sub.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
