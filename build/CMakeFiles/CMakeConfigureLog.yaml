@@ -1053,3 +1053,127 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckIPOSupported.cmake:197 (try_compile)"
+      - "/usr/share/cmake/Modules/CheckIPOSupported.cmake:320 (_ipo_run_language_check)"
+      - "CMakeLists.txt:30 (check_ipo_supported)"
+    directories:
+      source: "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src"
+      binary: "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin"
+    buildResult:
+      variable: "_IPO_LANGUAGE_CHECK_RESULT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile
+        /usr/bin/cmake -S/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src -B/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin --check-build-system CMakeFiles/Makefile.cmake 0
+        /usr/bin/cmake -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin//CMakeFiles/progress.marks
+        /usr/bin/make  -f CMakeFiles/Makefile2 all
+        make[1]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/make  -f CMakeFiles/foo.dir/build.make CMakeFiles/foo.dir/depend
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        cd /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/DependInfo.cmake foo
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/DependInfo.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/depend.internal".
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/depend.internal".
+        Scanning dependencies of target foo
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/make  -f CMakeFiles/foo.dir/build.make CMakeFiles/foo.dir/build
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [ 25%] Building C object CMakeFiles/foo.dir/foo.c.o
+        /usr/bin/cc   -flto=auto -fno-fat-lto-objects -o CMakeFiles/foo.dir/foo.c.o -c /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src/foo.c
+        [ 50%] Linking C static library libfoo.a
+        /usr/bin/cmake -P CMakeFiles/foo.dir/cmake_clean_target.cmake
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/foo.dir/link.txt --verbose=1
+        "/usr/bin/gcc-ar" qc libfoo.a CMakeFiles/foo.dir/foo.c.o
+        "/usr/bin/gcc-ranlib" libfoo.a
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [ 50%] Built target foo
+        /usr/bin/make  -f CMakeFiles/boo.dir/build.make CMakeFiles/boo.dir/depend
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        cd /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/DependInfo.cmake boo
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/DependInfo.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/depend.internal".
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/depend.internal".
+        Scanning dependencies of target boo
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/make  -f CMakeFiles/boo.dir/build.make CMakeFiles/boo.dir/build
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [ 75%] Building C object CMakeFiles/boo.dir/main.c.o
+        /usr/bin/cc   -flto=auto -fno-fat-lto-objects -o CMakeFiles/boo.dir/main.c.o -c /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src/main.c
+        [100%] Linking C executable boo
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/boo.dir/link.txt --verbose=1
+        /usr/bin/cc -flto=auto -fno-fat-lto-objects CMakeFiles/boo.dir/main.c.o -o boo  libfoo.a
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [100%] Built target boo
+        make[1]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/cmake -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles 0
+        
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckIPOSupported.cmake:197 (try_compile)"
+      - "/usr/share/cmake/Modules/CheckIPOSupported.cmake:320 (_ipo_run_language_check)"
+      - "CMakeLists.txt:30 (check_ipo_supported)"
+    directories:
+      source: "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src"
+      binary: "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin"
+    buildResult:
+      variable: "_IPO_LANGUAGE_CHECK_RESULT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile
+        /usr/bin/cmake -S/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src -B/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin --check-build-system CMakeFiles/Makefile.cmake 0
+        /usr/bin/cmake -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin//CMakeFiles/progress.marks
+        /usr/bin/make  -f CMakeFiles/Makefile2 all
+        make[1]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/make  -f CMakeFiles/foo.dir/build.make CMakeFiles/foo.dir/depend
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        cd /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/DependInfo.cmake foo
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/DependInfo.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/depend.internal".
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/foo.dir/depend.internal".
+        Scanning dependencies of target foo
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/make  -f CMakeFiles/foo.dir/build.make CMakeFiles/foo.dir/build
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [ 25%] Building C object CMakeFiles/foo.dir/foo.c.o
+        /usr/bin/cc   -flto=auto -fno-fat-lto-objects -o CMakeFiles/foo.dir/foo.c.o -c /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src/foo.c
+        [ 50%] Linking C static library libfoo.a
+        /usr/bin/cmake -P CMakeFiles/foo.dir/cmake_clean_target.cmake
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/foo.dir/link.txt --verbose=1
+        "/usr/bin/gcc-ar" qc libfoo.a CMakeFiles/foo.dir/foo.c.o
+        "/usr/bin/gcc-ranlib" libfoo.a
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [ 50%] Built target foo
+        /usr/bin/make  -f CMakeFiles/boo.dir/build.make CMakeFiles/boo.dir/depend
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        cd /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/DependInfo.cmake boo
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/DependInfo.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/depend.internal".
+        Dependee "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles/boo.dir/depend.internal".
+        Scanning dependencies of target boo
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/make  -f CMakeFiles/boo.dir/build.make CMakeFiles/boo.dir/build
+        make[2]: Entering directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [ 75%] Building C object CMakeFiles/boo.dir/main.c.o
+        /usr/bin/cc   -flto=auto -fno-fat-lto-objects -o CMakeFiles/boo.dir/main.c.o -c /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/src/main.c
+        [100%] Linking C executable boo
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/boo.dir/link.txt --verbose=1
+        /usr/bin/cc -flto=auto -fno-fat-lto-objects CMakeFiles/boo.dir/main.c.o -o boo  libfoo.a
+        make[2]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        [100%] Built target boo
+        make[1]: Leaving directory '/home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin'
+        /usr/bin/cmake -E cmake_progress_start /home/vedarsh/projects/usrl-core/build/CMakeFiles/_CMakeLTOTest-C/bin/CMakeFiles 0
+        
+      exitCode: 0
+...

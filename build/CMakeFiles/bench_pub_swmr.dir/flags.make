@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/vedarsh/projects/usrl-core/core/includes
 
-C_FLAGS = -O3 -march=native -std=gnu11
+C_FLAGS = -O3 -DNDEBUG -std=gnu11 -fPIE -O3 -march=native -mtune=native -flto -fstrict-aliasing -ffast-math -fno-plt -fdata-sections -ffunction-sections -fno-omit-frame-pointer -DNDEBUG
 
