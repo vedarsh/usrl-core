@@ -1,3 +1,14 @@
+
+/* usrl_platform.h or at the top of ring_mwmr.c */
+
+#if defined(__x86_64__) || defined(__i386__)
+    #define CPU_RELAX() __asm__ volatile("pause" ::: "memory")
+#elif defined(__aarch64__) || defined(__arm__)
+    #define CPU_RELAX() __asm__ volatile("yield" ::: "memory")
+#else
+    #define CPU_RELAX() do { } while (0) /* Fallback for unknown arch */
+#endif
+
 #include "usrl_core.h"
 #include "usrl_ring.h"
 
@@ -33,7 +44,7 @@ static inline uint64_t usrl_timestamp_ns(void) {
  * -------------------------------------------------------------------------- */
 static inline void backoff(int iter) {
     if (iter < 10) {
-        __asm__ volatile("pause" ::: "memory");  /* x86 hint, nop on other archs */
+        CPU_RELAX();  /* x86 hint, nop on other archs */
     } else {
         sched_yield();
     }

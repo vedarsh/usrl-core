@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/init_bench.dir/link.d"
   "CMakeFiles/init_bench.dir/init_bench.c.o"
   "CMakeFiles/init_bench.dir/init_bench.c.o.d"
   "init_bench"

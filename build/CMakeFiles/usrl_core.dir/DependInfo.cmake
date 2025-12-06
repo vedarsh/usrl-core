@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/vedarsh/projects/usrl-core/core/src/ring_mwmr.c" "CMakeFiles/usrl_core.dir/core/src/ring_mwmr.c.o" "gcc" "CMakeFiles/usrl_core.dir/core/src/ring_mwmr.c.o.d"
-  "/home/vedarsh/projects/usrl-core/core/src/ring_swmr.c" "CMakeFiles/usrl_core.dir/core/src/ring_swmr.c.o" "gcc" "CMakeFiles/usrl_core.dir/core/src/ring_swmr.c.o.d"
-  "/home/vedarsh/projects/usrl-core/core/src/usrl_core.c" "CMakeFiles/usrl_core.dir/core/src/usrl_core.c.o" "gcc" "CMakeFiles/usrl_core.dir/core/src/usrl_core.c.o.d"
+  "/home/ubuntu/usrl-core/core/src/ring_mwmr.c" "CMakeFiles/usrl_core.dir/core/src/ring_mwmr.c.o" "gcc" "CMakeFiles/usrl_core.dir/core/src/ring_mwmr.c.o.d"
+  "/home/ubuntu/usrl-core/core/src/ring_swmr.c" "CMakeFiles/usrl_core.dir/core/src/ring_swmr.c.o" "gcc" "CMakeFiles/usrl_core.dir/core/src/ring_swmr.c.o.d"
+  "/home/ubuntu/usrl-core/core/src/usrl_core.c" "CMakeFiles/usrl_core.dir/core/src/usrl_core.c.o" "gcc" "CMakeFiles/usrl_core.dir/core/src/usrl_core.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

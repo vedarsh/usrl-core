@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/bench_pub_mwmr.dir/link.d"
   "CMakeFiles/bench_pub_mwmr.dir/bench_pub_mwmr.c.o"
   "CMakeFiles/bench_pub_mwmr.dir/bench_pub_mwmr.c.o.d"
   "bench_pub_mwmr"

@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/bench_sub.dir/link.d"
   "CMakeFiles/bench_sub.dir/bench_sub.c.o"
   "CMakeFiles/bench_sub.dir/bench_sub.c.o.d"
   "bench_sub"

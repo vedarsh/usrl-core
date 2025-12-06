@@ -42,7 +42,7 @@ popd > /dev/null
 echo -e "\n${BLUE}=== Initializing Core ===${NC}"
 
 pushd "$BENCH_DIR" > /dev/null
-sudo ./init_bench
+./init_bench
 popd > /dev/null
 
 
