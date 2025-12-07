@@ -16,13 +16,18 @@ add_library(usrl_core STATIC
 
 # Link required system libs
 find_package(Threads REQUIRED)
-target_link_libraries(usrl_core PUBLIC Threads::Threads rt atomic)
+
+# Always link pthreads
+target_link_libraries(usrl_core PUBLIC Threads::Threads)
+
+# Link rt and atomic only on non-Apple (Linux, etc.)
+if(NOT APPLE)
+    target_link_libraries(usrl_core PUBLIC rt atomic)
+endif()
 
 # Expose library and headers to subdirectories
 target_include_directories(usrl_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # --- Add Subdirectories ---
-# Only add these if you want them built with the main lib
-# Otherwise, you can build them independently
 add_subdirectory(benchmarks)
 add_subdirectory(tools)
