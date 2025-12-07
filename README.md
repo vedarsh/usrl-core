@@ -31,7 +31,7 @@ Publishers and subscribers:
 - Locate ring descriptors by topic name.
 - Use non-blocking atomic operations to publish and consume messages.
 
-This architecture avoids kernel-mediated IPC (sockets, pipes, message queues) and associated context switches, which are well-known to add microsecond-scale overhead per message.[web:5][web:7]  
+This architecture avoids kernel-mediated IPC (sockets, pipes, message queues) and associated context switches, which are well-known to add microsecond-scale overhead per message.
 
 ---
 
@@ -40,6 +40,7 @@ This architecture avoids kernel-mediated IPC (sockets, pipes, message queues) an
 ### Prerequisites
 
 - Linux (x86_64 or ARM64)
+- MACOSX (x86_64 or ARM
 - CMake 3.16 or newer
 - GCC 9+ or Clang 10+ with C11 support
 - POSIX threads and `librt`
