@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define MAX_CONFIG_TOPICS 64
-#define CONFIG_FILE "../usrl_config_bench.json" // your usrl code here
+#define CONFIG_FILE "config.json" // your usrl code here
 
 // --- Helper Functions ---
 

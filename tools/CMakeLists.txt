@@ -21,3 +21,9 @@ add_executable(core_loader
     core_loader.c
 )
 target_link_libraries(core_loader PRIVATE usrl_core)
+
+configure_file(
+    ${CMAKE_SOURCE_DIR}/config.json
+    ${CMAKE_CURRENT_BINARY_DIR}/config.json
+    COPYONLY
+)
