@@ -147,6 +147,8 @@ void usrl_sub_get_health(usrl_sub_t *sub, usrl_health_t *out);
 
 void usrl_sub_destroy(usrl_sub_t *sub);
 
+void usrl_set_default_shm_size_mb(uint32_t mb);
+
 #ifdef __cplusplus
 }
 #endif

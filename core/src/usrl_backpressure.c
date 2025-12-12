@@ -1,17 +1,20 @@
 #include "usrl_backpressure.h"
 #include <time.h>
+#include <stdint.h>
 
 static inline uint64_t usrl_now_ns(void)
 {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+    return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
 }
 
+/* NOTE:
+ * Returns 1 when THROTTLED (exceeded), 0 when allowed.
+ */
 int usrl_quota_check(PublishQuota *quota)
 {
-    if (!quota)
-        return 0;
+    if (!quota) return 0;
 
     uint64_t now = usrl_now_ns();
 
@@ -31,26 +34,24 @@ int usrl_quota_check(PublishQuota *quota)
 
 int usrl_backpressure_check_lag(uint64_t lag, uint64_t threshold)
 {
-    if (lag > threshold)
-        return 1;
-    return 0;
+    return (lag > threshold) ? 1 : 0;
 }
 
+/* Returns backoff in *nanoseconds* (callers must convert if using usleep). */
 uint64_t usrl_backoff_exponential(uint32_t attempt)
 {
     if (attempt > 20) attempt = 20;
-    
+
     uint64_t backoff_ns = 100;
     for (uint32_t i = 0; i < attempt; i++)
         backoff_ns *= 2;
-    
+
     return backoff_ns;
 }
 
+/* Returns backoff in microseconds (current behavior kept). */
 uint64_t usrl_backoff_linear(uint64_t lag, uint64_t max_lag)
 {
-    if (lag >= max_lag)
-        return 100000;
-    
+    if (lag >= max_lag) return 100000;
     return (lag * 100000) / max_lag;
 }
